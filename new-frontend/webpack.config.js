@@ -1,19 +1,23 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var yml = require('node-yaml');  
+var yml = require('node-yaml');
 var config = yml.readSync(path.join(process.cwd(), 'config.yml'));
 var NODE_ENV = process.env.NODE_ENV || 'development';
 
 module.exports = {
-  // This sets the module where webpack begins bundling our TypeScript. All code 
-  // that runs & modules that we need to include must reduce back to this module. 
+  // This sets the module where webpack begins bundling our TypeScript. All code
+  // that runs & modules that we need to include must reduce back to this module.''
   entry: [
     path.join(process.cwd(), 'src/ts/index.ts')
   ],
   // This regex matches filenames for the TypeScript file extension, and if they match,
   // processes them using our TypeScript loader, based on our TypeScript config in
   // `tsconfig.json`.
+  //
+  resolve: {
+    extensions:['.Webpack.js', '.ts','.js']
+  },
   module: {
     rules:[
       {
@@ -22,7 +26,7 @@ module.exports = {
         loader: 'awesome-typescript-loader',
         options: { configFileName: './tsconfig.json' }
       }
-    ] 
+    ]
   },
   plugins: [
     // This adds references to our bundle to the root HTML
@@ -54,4 +58,5 @@ module.exports = {
     path: path.join(process.cwd(), 'dist'),
   },
   stats: 'normal'
+
 }
