@@ -57,6 +57,10 @@ module.exports = {
     filename: 'bundle.js',
     path: path.join(process.cwd(), 'dist'),
   },
-  stats: 'normal'
+  stats: 'normal',
+
+  node: {
+    fs: 'empty'
+  }
 
 }

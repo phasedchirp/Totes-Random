@@ -1,7 +1,7 @@
 import Twit         = require('twit');
 import Rx           = require('rx');
 import RNG          = require('tweed-random');
-import config = require('./twitter-app-config');
+// import {config} from './twitter-app-config';
 
 // set upper and lower bounds for integer generation
 let maxVal = Number.MAX_VALUE;
@@ -16,7 +16,7 @@ function hashCode(s: String){
         return hash;
 }
 
-function twitStream(config, filt? : string[]){
+export function twitStream(config, filt? : string[]){
   let T = new Twit(config);
   if (filt) {
     return Rx.Observable.create(function(obs){
@@ -31,7 +31,7 @@ function twitStream(config, filt? : string[]){
   }
 };
 
-function process(stream: Rx.Observable, n: number, size: number) {
+export function process(stream: Rx.Observable, n: number, size: number) {
   stream.filter(x => {return x.lang == 'en';})
         .map(x => x.text)
         .bufferCount(n)
@@ -42,6 +42,7 @@ function process(stream: Rx.Observable, n: number, size: number) {
           , function() {console.log('Completed'); return null;}
         )
 };
+
 //     function process(stream, gen, n, size){
 //       stream
 //       .filter((x) => {return x.lang === 'en';})
